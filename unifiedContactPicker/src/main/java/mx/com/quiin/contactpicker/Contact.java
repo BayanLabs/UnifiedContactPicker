@@ -1,9 +1,5 @@
 package mx.com.quiin.contactpicker;
 
-import android.net.Uri;
-
-
-
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 
 import java.io.Serializable;
@@ -80,7 +76,7 @@ public class Contact implements Parent<String>, Serializable{
     public boolean equals(Object obj) {
         if(obj instanceof Contact){
             Contact contact = (Contact) obj;
-            return this.displayName.equals(contact.displayName);
+            return this.communications.equals(contact.communications);
         }
         return false;
     }
@@ -105,8 +101,6 @@ public class Contact implements Parent<String>, Serializable{
             return communications.get(0);
         return "Not found";
     }
-
-
 
     public int getTotalCommunications(){
         return communications.size();

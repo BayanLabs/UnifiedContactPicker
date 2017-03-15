@@ -52,6 +52,6 @@ public class SimpleContact implements Comparable<SimpleContact>, Serializable{
 
     @Override
     public int compareTo(SimpleContact other) {
-        return this.displayName.compareTo(other.displayName);
+        return this.communication.compareTo(other.communication);
     }
 }

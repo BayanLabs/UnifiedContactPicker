@@ -139,13 +139,14 @@ public class ContactPickerFragment extends Fragment
                 suggestion.addCommunication(communication);
                 mSuggestions.add(suggestion);
 
-                if(!mContacts.contains(newContact)){
+                if(!mContacts.contains(newContact)) {
                     newContact.addCommunication(communication);
                     mContacts.add(newContact);
-                }else{
-                    Contact existingContact = mContacts.get(mContacts.indexOf(newContact));
-                    existingContact.addCommunication(communication);
                 }
+//                }else{
+//                    Contact existingContact = mContacts.get(mContacts.indexOf(newContact));
+//                    existingContact.addCommunication(communication);
+//                }
 
             }while(cursor.moveToNext());
         }
