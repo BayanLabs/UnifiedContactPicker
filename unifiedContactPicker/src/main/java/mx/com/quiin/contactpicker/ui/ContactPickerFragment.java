@@ -216,7 +216,7 @@ public class ContactPickerFragment extends Fragment
     private void addChip(String communication) {
         if(mNachoTextView != null){
             mNachoTextView.append(communication);
-            int start = mNachoTextView.getText().toString().indexOf(communication);
+            int start = mNachoTextView.getText().length() - communication.length();
             int last = mNachoTextView.getText().length();
             mNachoTextView.chipify(start,last);
         }else Log.e(TAG, "mNachoTextView is null");
