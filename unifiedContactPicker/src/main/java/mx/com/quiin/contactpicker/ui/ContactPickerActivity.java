@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import java.util.TreeSet;
@@ -35,6 +33,7 @@ public class ContactPickerActivity extends AppCompatActivity {
     public static final String CP_EXTRA_SELECTION_DRAWABLE = "CP_EXTRA_SELECTION_DRAWABLE";
     public static final String CP_EXTRA_FAB_DRAWABLE = "CP_EXTRA_DAB_DRAWABLE";
     public static final String CP_EXTRA_FAB_COLOR= "CP_EXTRA_FAB_COLOR";
+    public static final String CP_EXTRA_PICK_SINGLE_CONTACT= "CP_EXTRA_PICK_SINGLE_CONTACT";
 
     public static final String [] CP_DEFAULT_PROJECTION = new String[] {
             ContactsContract.Data._ID,
@@ -54,6 +53,7 @@ public class ContactPickerActivity extends AppCompatActivity {
     private ContactPickerFragment mFragment;
 
     private boolean showChips;
+    private boolean pickSingleContact;
     private boolean hasCustomArgs;
     private String[] projection;
     private String[] selectArgs;
@@ -85,6 +85,7 @@ public class ContactPickerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             this.showChips = intent.getBooleanExtra(CP_EXTRA_SHOW_CHIPS, true);
+            this.pickSingleContact = intent.getBooleanExtra(CP_EXTRA_PICK_SINGLE_CONTACT, false);
             this.hasCustomArgs = intent.getBooleanExtra(CP_EXTRA_HAS_CUSTOM_SELECTION_ARGS, false);
             this.projection = intent.getStringArrayExtra(CP_EXTRA_PROJECTION);
             this.select = intent.getStringExtra(CP_EXTRA_SELECTION);
@@ -122,17 +123,25 @@ public class ContactPickerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TreeSet<SimpleContact> selected = mFragment.getSelected();
-                Intent result = new Intent();
-                result.putExtra(CP_SELECTED_CONTACTS, selected);
-                setResult(RESULT_OK,result);
-                finish();
+                finishWithResult();
             }
         });
     }
 
+    public void finishWithResult() {
+        TreeSet<SimpleContact> selected = mFragment.getSelected();
+        Intent result = new Intent();
+        result.putExtra(CP_SELECTED_CONTACTS, selected);
+        setResult(RESULT_OK,result);
+        finish();
+    }
+
     public boolean isShowChips() {
         return showChips;
+    }
+
+    public boolean isPickSingleContact() {
+        return pickSingleContact;
     }
 
     public String[] getProjection() {

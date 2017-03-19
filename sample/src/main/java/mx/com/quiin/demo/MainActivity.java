@@ -3,18 +3,15 @@ package mx.com.quiin.demo;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,7 +20,6 @@ import java.util.List;
 import java.util.TreeSet;
 
 import mx.com.quiin.contactpicker.Contact;
-import mx.com.quiin.contactpicker.PickerUtils;
 import mx.com.quiin.contactpicker.SimpleContact;
 import mx.com.quiin.contactpicker.adapters.ContactAdapter;
 import mx.com.quiin.contactpicker.interfaces.ContactSelectionListener;
@@ -50,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements ContactSelectionL
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED){
             Intent contactPicker = new Intent(this, ContactPickerActivity.class);
+//            contactPicker.putExtra(ContactPickerActivity.CP_EXTRA_SHOW_CHIPS, false);
+//            contactPicker.putExtra(ContactPickerActivity.CP_EXTRA_PICK_SINGLE_CONTACT, true);
             startActivityForResult(contactPicker, CONTACT_PICKER_REQUEST);
         }else{
             ActivityCompat.requestPermissions(this,

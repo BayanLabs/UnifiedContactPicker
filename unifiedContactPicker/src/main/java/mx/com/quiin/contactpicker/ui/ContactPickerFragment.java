@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -179,6 +180,13 @@ public class ContactPickerFragment extends Fragment
     @Override
     public void onContactSelected(Contact contact, String communication) {
         addChip(communication);
+
+        FragmentActivity activity = getActivity();
+        if (activity instanceof ContactPickerActivity) {
+            if (((ContactPickerActivity) activity).isPickSingleContact()) {
+                ((ContactPickerActivity) activity).finishWithResult();
+            }
+        }
     }
 
     /**
